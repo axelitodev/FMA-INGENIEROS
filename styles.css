@@ -979,7 +979,6 @@ header {
         padding: 0 10px;
     }
 
-    /* 🔥 FIX SERVICIOS */
     .centro {
         grid-column: auto !important;
     }
@@ -1031,7 +1030,6 @@ header {
         padding: 0 10px;
     }
 
-    /* 🔥 MUY IMPORTANTE */
     .centro {
         grid-column: auto !important;
     }
@@ -1099,13 +1097,6 @@ header {
         font-size: 16px;
     }
 
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 10px;
-    }
-
-    /* 🔥 CLAVE PARA QUE SALGAN TODOS */
     .centro {
         grid-column: auto !important;
     }
@@ -1143,4 +1134,58 @@ header {
     .form-container {
         padding: 25px;
     }
+
+    .pagina-interna .mision-vision {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .pagina-interna .box {
+        padding: 20px 18px;
+        border-radius: 14px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .pagina-interna .box h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .pagina-interna .box p {
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: left;
+    }
+
+    #servicios .grid,
+    #proyectos .grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 15px;
+        scroll-snap-type: x mandatory;
+        padding: 20px 20px 30px 20px; 
+        overflow-y: visible;
+        
 }
+
+    #servicios .grid::-webkit-scrollbar,
+    #proyectos .grid::-webkit-scrollbar {
+        display: none;
+}
+
+    #servicios .card,
+    #proyectos .card {
+        min-width: 85%;
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+}
+
+    .card {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+}
+
