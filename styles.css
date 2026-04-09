@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 header {
@@ -84,7 +84,8 @@ nav a:hover {
 
 .slider {
     position: relative;
-    height: 90vh;
+    height: 100vh; 
+    min-height: 600px; 
     overflow: hidden;
     width: 100%;
 }
@@ -94,10 +95,18 @@ nav a:hover {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-        rgba(0, 0, 0, 0.65),
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.65)
+        rgba(0, 0, 0, 0.85),
+        rgba(1, 0, 88, 0.12),
+        rgba(0, 0, 0, 0.966)
     );
+    z-index: 1;
+}
+
+.slider::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0,174,239,0.15), transparent 70%);
     z-index: 1;
 }
 
@@ -116,7 +125,7 @@ nav a:hover {
     left: 0;
     opacity: 0;
     transform: scale(1.1);
-    transition: opacity 1.2s ease-in-out, transform 6s ease-in-out;
+    transition: opacity 0.8s ease-in-out, transform 2.5s ease-in-out;
 }
 
 .slides img.active {
@@ -133,27 +142,49 @@ nav a:hover {
     color: white;
     z-index: 2;
     transition: opacity 0.5s ease;
+    max-width: 900px;
+    width: 90%;
+    padding: 0 20px;
 }
 
 .overlay h1 {
-    font-size: 65px;
+    font-size: 58px;
     font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1.1;
+
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
     animation: fadeUp 1s ease forwards;
 }
 
+.overlay h1::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 3px;
+    margin: 18px auto;
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    border-radius: 5px;
+}
+
 .overlay p {
-    font-size: 24px;
+    font-size: 20px;
+    line-height: 1.6;
+    color: #e2e8f0;
+    margin-top: 10px;
+
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
     animation: fadeUp 1s ease forwards;
-    animation-delay: 0.3s;
+    animation-delay: 0.4s;
 }
 
 .overlay h1,
 .overlay p {
-    text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+    text-shadow: 
+        0 5px 20px rgba(0,0,0,0.85),
+        0 0 10px rgba(56,189,248,0.25);
 }
 
 @keyframes fadeUp {
@@ -273,31 +304,57 @@ section {
     text-align: center;
 }
 
-.btn {
-    background: #25D366;
-    color: white;
-    padding: 12px 25px;
-    display: inline-block;
-    margin-top: 15px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.whatsapp {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: green;
-    color: white;
-    padding: 15px;
-    border-radius: 50%;
-}
-
 footer {
-    background: black;
-    color: white;
+    background: rgba(10, 37, 64, 0.95);
+    color: #fff;
+    padding: 60px 20px 20px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    gap: 60px;
+}
+
+.footer-col h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer-col p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #cbd5f5;
+}
+
+.footer-col a {
+    display: block;
+    text-decoration: none;
+    color: #cbd5f5;
+    margin-bottom: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-col a:hover {
+    color: #38bdf8;
+    transform: translateX(5px);
+}
+
+.footer-logo {
+    width: 160px;
+    margin-bottom: 15px;
+}
+
+.footer-bottom {
+    border-top: 1px solid #1e293b;
+    margin-top: 40px;
+    padding-top: 15px;
     text-align: center;
-    padding: 15px;
+    font-size: 14px;
+    color: #94a3b8;
 }
 
 html {
@@ -414,17 +471,20 @@ html {
     height: 28px;
 }
 
-.pagina-interna header {
+.pagina-interna header,
+.pagina-servicios header {
     position: fixed;
-    background: #0A2540;
+    background: rgba(10, 37, 64, 0.95);
     backdrop-filter: blur(6px);
 }
 
-.pagina-interna {
+.pagina-interna,
+.pagina-servicios{
     padding-top: 110px;
 }
 
-.pagina-interna .whatsapp {
+.pagina-interna .whatsapp,
+.pagina-servicios .whatsapp {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -441,7 +501,8 @@ html {
     transition: 0.3s;
 }
 
-.pagina-interna .whatsapp:hover {
+.pagina-interna .whatsapp:hover,
+.pagina-servicios .whatsapp:hover {
     transform: scale(1.05);
     background: #1ebe5d;
 }
@@ -487,6 +548,9 @@ html {
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards;
 }
 
 .pagina-interna .box:hover {
@@ -515,26 +579,16 @@ html {
     color: #555;
 }
 
-.pagina-interna .box {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeUp 0.8s ease forwards;
-}
-
 .pagina-interna .box:nth-child(2) {
     animation-delay: 0.3s;
-}
-
-@keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .nosotros {
     padding: 80px 40px;
     background: #f8fafc;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s;
 }
 
 .nosotros h2 {
@@ -544,18 +598,18 @@ html {
     margin-bottom: 20px;
 }
 
-.nosotros p {
-    max-width: 850px;
-    margin: auto;
-    font-size: 17px;
-    line-height: 1.8;
-    color: #444;
-    margin-bottom: 30px;
+.btn-slider {
+     opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.7s;
 }
 
-.btn-nosotros, .btn-cotiza {
+.btn-nosotros,
+.btn-cotiza,
+.btn-slider {
     display: inline-block;
-    background: #0A2540;
+    background: rgba(10, 37, 64, 0.95);
     color: white;
     padding: 14px 28px;
     border-radius: 30px;
@@ -565,7 +619,9 @@ html {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.btn-nosotros:hover, .btn-cotiza:hover {
+.btn-nosotros:hover,
+.btn-cotiza:hover, 
+.btn-slider:hover {
     background: #00AEEF;
     transform: translateY(-3px);
 }
@@ -576,29 +632,13 @@ html {
     margin: 20px auto 0 auto;
 }
 
-.nosotros {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s;
-}
-
 .nosotros.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-#proyectos {
-    padding: 80px 40px;
-    background: #f8fafc; 
-}
-
-#proyectos h2 {
-    font-size: 34px;
-    font-weight: 800;
-    color: #0A2540;
-    margin-bottom: 10px;
-}
-
+#servicios p,
+#clientes p,
 #proyectos p {
     max-width: 850px;
     margin: auto;
@@ -608,44 +648,18 @@ html {
     margin-bottom: 30px;
 }
 
-#clientes h2 {
+#servicios h2,
+#clientes h2,
+#proyectos h2 {
     font-size: 34px;
     font-weight: 800;
     color: #0A2540;
     margin-bottom: 10px;
 }
 
-#clientes p {
-    max-width: 850px;
-    margin: auto;
-    font-size: 17px;
-    line-height: 1.8;
-    color: #444;
-    margin-bottom: 30px;
-}
-
-#servicios h2 {
-    font-size: 34px;
-    font-weight: 800;
-    color: #0A2540;
-    margin-bottom: 10px;
-}
-
-#servicios p {
-    max-width: 850px;
-    margin: auto;
-    font-size: 17px;
-    line-height: 1.8;
-    color: #444;
-    margin-bottom: 30px;
-}
-
-header {
-    z-index: 9999;
-}
-
-.slider::before {
-    pointer-events: none;
+#proyectos {
+    padding: 80px 40px;
+    background: #f8fafc; 
 }
 
 .dropdown {
@@ -702,38 +716,6 @@ header {
     padding-left: 28px;
 }
 
-.pagina-servicios header {
-    position: fixed;
-    background: #0A2540;
-    backdrop-filter: blur(6px);
-}
-
-.pagina-servicios  {
-    padding-top: 110px;
-}
-
-.pagina-servicios  .whatsapp {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25D366;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: 0.3s;
-}
-
-.pagina-servicios .whatsapp:hover {
-    transform: scale(1.05);
-    background: #1ebe5d;
-}
-
 .servicios-detalle {
     padding: 60px 20px;
 }
@@ -744,11 +726,6 @@ header {
     font-weight: 800;
     color: #0A2540;
     margin-bottom: 30px;
-}
-
-.lista-servicios {
-    width: 600px;
-    margin-left: 10%; 
 }
 
 .lista-servicios p {
@@ -762,7 +739,7 @@ header {
 }
 
 .contenido-servicio {
-   display: flex;
+    display: flex;
     align-items: flex-start;
     justify-content: center; 
     gap: 15px;
@@ -771,16 +748,8 @@ header {
 }
 
 .lista-servicios {
-  width: 55%;
+    width: 55%;
     margin-left: 0; 
-}
-
-.lista-servicios p {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    position: relative;
-    padding-left: 25px;
 }
 
 .imagenes-servicio {
@@ -863,22 +832,22 @@ header {
 
 #proyectos .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
 }
 
 #proyectos .card {
     display: block;
     background: white;
-    border-radius: 15px;
+    border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    transition: 0.4s;
+    transition: all 0.35s ease;
     text-decoration: none;
 }
 
 #proyectos .card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-8px) scale(1.02);
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
@@ -913,13 +882,20 @@ header {
 }
 
 #proyectos .proyecto-overlay p {
-    color: #fff;
-    font-size: 14px;
-    line-height: 1.5;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+    color: #e2e8f0;
 
     opacity: 0;
-    transform: translateY(15px);
-    transition: 0.4s ease;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    
+    text-shadow: 
+        0 4px 15px rgba(0,0,0,0.7),
+        0 0 10px rgba(56,189,248,0.2);
 }
 
 #proyectos .card h3 {
@@ -941,104 +917,6 @@ header {
 #proyectos .card:hover .proyecto-overlay p {
     opacity: 1;
     transform: translateY(0);
-}
-
-@media (max-width: 992px) {
-
-    header {
-        padding: 15px 20px;
-    }
-
-    .logo img {
-        height: 60px;
-        margin-left: 0;
-    }
-
-    nav {
-        gap: 15px;
-        margin-right: 0;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    nav a {
-        font-size: 14px;
-    }
-
-    .overlay h1 {
-        font-size: 40px;
-    }
-
-    .overlay p {
-        font-size: 18px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        padding: 0 10px;
-    }
-
-    .centro {
-        grid-column: auto !important;
-    }
-
-    .card img {
-        height: 180px;
-    }
-
-    .card h3 {
-        font-size: 18px;
-    }
-
-    .mision-vision {
-        flex-direction: column;
-        padding: 20px;
-    }
-
-    .nosotros {
-        padding: 50px 20px;
-    }
-
-    #clientes {
-        padding: 50px 20px;
-    }
-
-    .contenido-servicio {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .lista-servicios {
-        width: 100%;
-    }
-
-    .imagenes-servicio {
-        width: 100%;
-    }
-
-    .imagenes-servicio img {
-        height: 220px;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 10px;
-    }
-
-    .centro {
-        grid-column: auto !important;
-    }
-
-    .grid h3 {
-        font-size: 14px;
-        text-align: center;
-        line-height: 1.3;
-    }
 }
 
 @media (max-width: 576px) {
@@ -1086,15 +964,15 @@ header {
     }
 
     .slider {
-        height: 75vh;
+        height: 85vh;
     }
 
     .overlay h1 {
-        font-size: 28px;
+        font-size: 32px;
     }
 
     .overlay p {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .centro {
@@ -1169,23 +1047,67 @@ header {
         padding: 20px 20px 30px 20px; 
         overflow-y: visible;
         
-}
+    }
 
     #servicios .grid::-webkit-scrollbar,
     #proyectos .grid::-webkit-scrollbar {
         display: none;
-}
+    }
 
     #servicios .card,
     #proyectos .card {
         min-width: 85%;
         flex: 0 0 auto;
         scroll-snap-align: center;
-}
+    }
 
     .card {
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 25px;
+    }
+
+    .footer-col {
+        align-items: center;
+    }
+
+    .footer-logo {
+        margin: 0 auto 10px auto;
+    }
+
+    .footer-col h3 {
+        font-size: 16px;
+    }
+
+    .footer-col p,
+    .footer-col a {
+        font-size: 13px;
+    }
+
+    .footer-col a {
+        transform: none !important;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
+
+    .controls span {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .controls .prev {
+        margin-left: 10px;
+    }
+
+    .controls .next {
+        margin-right: 10px;
+    }
 
 }
-
