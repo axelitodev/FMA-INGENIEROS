@@ -93,7 +93,7 @@ window.addEventListener("scroll", function () {
 
     if (!header) return;
 
-    if (window.scrollY > 80) {
+    if (window.scrollY > 50) {
         header.classList.add("scrolled");
     } else {
         header.classList.remove("scrolled");
@@ -129,5 +129,62 @@ if (toggle && menu) {
     toggle.addEventListener('click', (e) => {
         e.preventDefault();
         menu.classList.toggle('active');
+    });
+}
+
+// Hamburger menu
+const hamburger = document.querySelector('.hamburger');
+const headerEl = document.querySelector('header');
+const mobileDropdown = document.querySelector('.dropdown');
+const mobileDropdownTrigger = mobileDropdown ? mobileDropdown.querySelector('a') : null;
+
+if (hamburger && headerEl) {
+    hamburger.addEventListener('click', () => {
+        headerEl.classList.toggle('nav-open');
+        const isOpen = headerEl.classList.contains('nav-open');
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+
+        if (!isOpen && mobileDropdown) {
+            mobileDropdown.classList.remove('open');
+        }
+    });
+
+    if (mobileDropdown && mobileDropdownTrigger) {
+        mobileDropdownTrigger.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                mobileDropdown.classList.toggle('open');
+            }
+        });
+    }
+
+    // Close nav when a nav link is clicked
+    document.querySelectorAll('nav a').forEach(a => {
+        a.addEventListener('click', () => {
+            const isServiciosTrigger = mobileDropdown && mobileDropdownTrigger && a === mobileDropdownTrigger;
+
+            if (window.innerWidth <= 768 && isServiciosTrigger) {
+                return;
+            }
+
+            headerEl.classList.remove('nav-open');
+            hamburger.setAttribute('aria-expanded', 'false');
+
+            if (mobileDropdown) {
+                mobileDropdown.classList.remove('open');
+            }
+        });
+    });
+
+    // Close nav when clicking outside the header
+    document.addEventListener('click', e => {
+        if (!headerEl.contains(e.target)) {
+            headerEl.classList.remove('nav-open');
+            hamburger.setAttribute('aria-expanded', 'false');
+
+            if (mobileDropdown) {
+                mobileDropdown.classList.remove('open');
+            }
+        }
     });
 }
